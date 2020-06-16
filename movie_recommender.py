@@ -23,16 +23,17 @@ def combine_features(row):
 	except:
 		print("Error:", row)
 
-df['combined_features'] = df.apply(combine_features(), axis=1)
+df["combined_features"] = df.apply(combine_features,axis=1)
 
 cv = CountVectorizer()
 count_matrix = cv.fit_transform(df["combined_features"])
 cosine_sim = cosine_similarity(count_matrix)
 
-movie_user_likes = "Avatar"
+movie_user_likes = "Sheena"
 movie_index = get_index_from_title(movie_user_likes)
 similar_movies =  list(enumerate(cosine_sim[movie_index]))
 sorted_similar_movies = sorted(similar_movies,key=lambda x:x[1],reverse=True)
+
 
 i=0
 for element in sorted_similar_movies:
